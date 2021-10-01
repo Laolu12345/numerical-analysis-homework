@@ -1,0 +1,583 @@
+//P209-1)-(1)
+//雅可比
+
+clear;
+clc;
+A=[5,2,1;-1,4,2;2,-3,10];
+b=[-12;20;3];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j)
+             L(i,j)=0
+             U(i,j)=0
+             end
+             if i-j>0
+                 D(i,j)=0
+                 L(i,j)=-A(i,j)
+                 U(i,j)=0
+                end
+            if i-j<0
+                D(i,j)=0
+                L(i,j)=0
+                U(i,j)=-A(i,j)
+                end
+          j=j+1
+      end
+      i=i+1
+end
+B=inv(D)*(L+U);
+[Alpha,Lambda]=eig(B);
+Lambda=diag(Lambda);
+LambdaMAX=max(abs(Lambda));
+
+//此LambdaMAX=0.506079070479939<1
+
+//高斯-塞德尔
+
+clear;
+clc;
+A=[5,2,1;-1,4,2;2,-3,10];
+b=[-12;20;3];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j)
+             L(i,j)=0
+             U(i,j)=0
+             end
+             if i-j>0
+                 D(i,j)=0
+                 L(i,j)=-A(i,j)
+                 U(i,j)=0
+                end
+            if i-j<0
+                D(i,j)=0
+                L(i,j)=0
+                U(i,j)=-A(i,j)
+                end
+          j=j+1
+      end
+      i=i+1
+end
+B=inv(D-L)*(U);
+[Alpha,Lambda]=eig(B);
+Lambda=diag(Lambda);
+LambdaMAX=max(abs(Lambda));
+
+//此LambdaMAX=0.200000000000000<1
+
+//P209-1)-(2）
+
+//雅可比
+
+clear;
+clc;
+A=[5,2,1;-1,4,2;2,-3,10];
+b=[-12;20;3];
+x=[0;0;0];
+x0=[1;1;1];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j);
+             L(i,j)=0;
+             U(i,j)=0;
+             end
+             if i-j>0
+                 D(i,j)=0;
+                 L(i,j)=-A(i,j);
+                 U(i,j)=0;
+                end
+            if i-j<0
+                D(i,j)=0;
+                L(i,j)=0;
+                U(i,j)=-A(i,j);
+                end
+          j=j+1;
+      end
+      i=i+1;
+end
+
+i=0;
+while norm(x-x0,1)>1e-4
+    x0=x;
+    n=(U+L)*x;
+    n=diag(n);
+    x=inv(D).*n+inv(D).*b;
+    x=diag(x);
+    i=i+1;
+end
+ 
+i为18次
+x为-4，3，2
+
+
+//高斯——塞德尔
+clear;
+clc;
+A=[5,2,1;-1,4,2;2,-3,10];
+b=[-12;20;3];
+x=[0;0;0];
+x0=[1;1;1];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j);
+             L(i,j)=0;
+             U(i,j)=0;
+             end
+             if i-j>0
+                 D(i,j)=0;
+                 L(i,j)=-A(i,j);
+                 U(i,j)=0;
+                end
+            if i-j<0
+                D(i,j)=0;
+                L(i,j)=0;
+                U(i,j)=-A(i,j);
+                end
+          j=j+1;
+      end
+      i=i+1;
+end
+
+i=0;
+j=0;
+while norm(x-x0,1)>1e-4
+    x0=x;
+    n=L*x;
+    n=n(:);
+    j=1;
+    while j<=long
+        if j==1
+           x(j)=(b(j)-A(1,j+1:long)*x(j+1:long))/A(j,j); 
+        elseif j>1&&j<long
+            x(j)=(b(j)-A(j,j+1:long)*x(j+1:long)-A(j,1:j-1)*x(1:j-1))/A(j,j);
+        elseif j==long
+            x(long)=(b(long)-A(long,1:long-1)*x(1:long-1))/A(long,long);
+        end
+        j=j+1;
+    end
+    x=x(:);
+    i=i+1;
+end
+
+
+//i=9，且x为-4，3，2
+                           
+                           
+//P209-(2)-(1）
+
+//雅可比
+clear;
+clc;
+A=[1,0.4,0.4;0.4,1,0.8;0.4,0.8,1];
+b=[1;2;3];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j)
+             L(i,j)=0
+             U(i,j)=0
+             end
+             if i-j>0
+                 D(i,j)=0
+                 L(i,j)=-A(i,j)
+                 U(i,j)=0
+                end
+            if i-j<0
+                D(i,j)=0
+                L(i,j)=0
+                U(i,j)=-A(i,j)
+                end
+          j=j+1
+      end
+      i=i+1
+end
+B=inv(D)*(L+U);
+[Alpha,Lambda]=eig(B);
+Lambda=diag(Lambda);
+LambdaMAX=max(abs(Lambda));
+
+LambdaMAX为1.09282032302755>1
+
+//高斯-塞德尔
+
+clear;
+clc;
+A=[1,0.4,0.4;0.4,1,0.8;0.4,0.8,1];
+b=[1;2;3];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j)
+             L(i,j)=0
+             U(i,j)=0
+             end
+             if i-j>0
+                 D(i,j)=0
+                 L(i,j)=-A(i,j)
+                 U(i,j)=0
+                end
+            if i-j<0
+                D(i,j)=0
+                L(i,j)=0
+                U(i,j)=-A(i,j)
+                end
+          j=j+1
+      end
+      i=i+1
+end
+B=inv(D-L)*(U);
+[Alpha,Lambda]=eig(B);
+Lambda=diag(Lambda);
+LambdaMAX=max(abs(Lambda));
+
+LambdaMAX=0.628263986582746<1
+
+//P209-2)-(2）
+
+//雅可比
+
+clear;
+clc;
+A=[1,2,-2;1,1,1;2,2,1];
+b=[1;1;1];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j)
+             L(i,j)=0
+             U(i,j)=0
+             end
+             if i-j>0
+                 D(i,j)=0
+                 L(i,j)=-A(i,j)
+                 U(i,j)=0
+                end
+            if i-j<0
+                D(i,j)=0
+                L(i,j)=0
+                U(i,j)=-A(i,j)
+                end
+          j=j+1
+      end
+      i=i+1
+end
+B=inv(D)*(L+U);
+[Alpha,Lambda]=eig(B);
+Lambda=diag(Lambda);
+LambdaMAX=max(abs(Lambda));
+
+//LambdaMAX=1.23322183610153e-05<1
+
+//高斯-塞德尔
+
+clear;
+clc;
+A=[1,2,-2;1,1,1;2,2,1];
+b=[1;1;1];
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j)
+             L(i,j)=0
+             U(i,j)=0
+             end
+             if i-j>0
+                 D(i,j)=0
+                 L(i,j)=-A(i,j)
+                 U(i,j)=0
+                end
+            if i-j<0
+                D(i,j)=0
+                L(i,j)=0
+                U(i,j)=-A(i,j)
+                end
+          j=j+1
+      end
+      i=i+1
+end
+B=inv(D-L)*(U);
+[Alpha,Lambda]=eig(B);
+Lambda=diag(Lambda);
+LambdaMAX=max(abs(Lambda));
+
+//LambdaMAX=2>1
+
+
+//P210-7)-(2）
+
+//omega=1.03
+
+clear;
+clc;
+A=[4,-1,0;-1,4,-1;0,-1,4];
+b=[1;4;-3];
+x=[0;0;0];
+x0=[0.5;1;-0.5];
+omega=1.03;
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j);
+             L(i,j)=0;
+             U(i,j)=0;
+             end
+             if i-j>0
+                 D(i,j)=0;
+                 L(i,j)=-A(i,j);
+                 U(i,j)=0;
+                end
+            if i-j<0
+                D(i,j)=0;
+                L(i,j)=0;
+                U(i,j)=-A(i,j);
+                end
+          j=j+1;
+      end
+      i=i+1;
+end
+
+i=0;
+j=0;
+m=norm(x-x0,'inf');
+while m>5e-6
+    n=L*x;
+    n=n(:);
+    j=1;
+    while j<=long
+        if j==1
+           x(j)=(1-omega)*x(j)+omega*((b(j)-A(1,j+1:long)*x(j+1:long))/A(j,j)); 
+          
+        elseif j>1&&j<long
+            x(j)=(1-omega)*x(j)+omega*((b(j)-A(j,j+1:long)*x(j+1:long)-A(j,1:j-1)*x(1:j-1))/A(j,j));
+            
+        elseif j==long
+            x(long)=(1-omega)*x(j)+omega*((b(long)-A(long,1:long-1)*x(1:long-1))/A(long,long));
+      
+        end
+        j=j+1;
+    end
+    x=x(:);
+    i=i+1;
+    m=abs(norm(x-x0,'inf'));
+end
+
+//omega=1.03时，迭代次数为5
+
+//omega=1
+
+clear;
+clc;
+A=[4,-1,0;-1,4,-1;0,-1,4];
+b=[1;4;-3];
+x=[0;0;0];
+x0=[0.5;1;-0.5];
+omega=1;
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j);
+             L(i,j)=0;
+             U(i,j)=0;
+             end
+             if i-j>0
+                 D(i,j)=0;
+                 L(i,j)=-A(i,j);
+                 U(i,j)=0;
+                end
+            if i-j<0
+                D(i,j)=0;
+                L(i,j)=0;
+                U(i,j)=-A(i,j);
+                end
+          j=j+1;
+      end
+      i=i+1;
+end
+
+i=0;
+j=0;
+m=norm(x-x0,'inf');
+while m>5e-6
+    n=L*x;
+    n=n(:);
+    j=1;
+    while j<=long
+        if j==1
+           x(j)=(1-omega)*x(j)+omega*((b(j)-A(1,j+1:long)*x(j+1:long))/A(j,j)); 
+          
+        elseif j>1&&j<long
+            x(j)=(1-omega)*x(j)+omega*((b(j)-A(j,j+1:long)*x(j+1:long)-A(j,1:j-1)*x(1:j-1))/A(j,j));
+            
+        elseif j==long
+            x(long)=(1-omega)*x(j)+omega*((b(long)-A(long,1:long-1)*x(1:long-1))/A(long,long));
+      
+        end
+        j=j+1;
+    end
+    x=x(:);
+    i=i+1;
+    m=abs(norm(x-x0,'inf'));
+end
+
+//omega=1时，迭代次数为6
+
+
+//omega=1.1
+
+
+clear;
+clc;
+A=[4,-1,0;-1,4,-1;0,-1,4];
+b=[1;4;-3];
+x=[0;0;0];
+x0=[0.5;1;-0.5];
+omega=1.1;
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j);
+             L(i,j)=0;
+             U(i,j)=0;
+             end
+             if i-j>0
+                 D(i,j)=0;
+                 L(i,j)=-A(i,j);
+                 U(i,j)=0;
+                end
+            if i-j<0
+                D(i,j)=0;
+                L(i,j)=0;
+                U(i,j)=-A(i,j);
+                end
+          j=j+1;
+      end
+      i=i+1;
+end
+
+i=0;
+j=0;
+m=norm(x-x0,'inf');
+while m>5e-6
+    n=L*x;
+    n=n(:);
+    j=1;
+    while j<=long
+        if j==1
+           x(j)=(1-omega)*x(j)+omega*((b(j)-A(1,j+1:long)*x(j+1:long))/A(j,j)); 
+          
+        elseif j>1&&j<long
+            x(j)=(1-omega)*x(j)+omega*((b(j)-A(j,j+1:long)*x(j+1:long)-A(j,1:j-1)*x(1:j-1))/A(j,j));
+            
+        elseif j==long
+            x(long)=(1-omega)*x(j)+omega*((b(long)-A(long,1:long-1)*x(1:long-1))/A(long,long));
+      
+        end
+        j=j+1;
+    end
+    x=x(:);
+    i=i+1;
+    m=abs(norm(x-x0,'inf'));
+end
+
+
+//omega=1.1时，迭代次数为6
+
+
+//P209-8)-(2）
+
+clear;
+clc;
+A=[5,2,1;-1,4,2;2,-3,10];
+b=[-12;20;3];
+x=[0;0;0];
+x0=[1;1;1];
+omega=0.9;
+long=size(A,1);
+i=1;
+while i<=long
+      j=1;
+      while j<=long  
+             if i-j==0 
+             D(i,j)=A(i,j);
+             L(i,j)=0;
+             U(i,j)=0;
+             end
+             if i-j>0
+                 D(i,j)=0;
+                 L(i,j)=-A(i,j);
+                 U(i,j)=0;
+                end
+            if i-j<0
+                D(i,j)=0;
+                L(i,j)=0;
+                U(i,j)=-A(i,j);
+                end
+          j=j+1;
+      end
+      i=i+1;
+end
+
+i=0;
+j=0;
+m=norm(x-x0,'inf');
+while m>1e-4
+    x0=x;
+    n=L*x;
+    n=n(:);
+    j=1;
+    while j<=long
+        if j==1
+           x(j)=(1-omega)*x(j)+omega*((b(j)-A(1,j+1:long)*x(j+1:long))/A(j,j)); 
+          
+        elseif j>1&&j<long
+            x(j)=(1-omega)*x(j)+omega*((b(j)-A(j,j+1:long)*x(j+1:long)-A(j,1:j-1)*x(1:j-1))/A(j,j));
+            
+        elseif j==long
+            x(long)=(1-omega)*x(j)+omega*((b(long)-A(long,1:long-1)*x(1:long-1))/A(long,long));
+      
+        end
+        j=j+1;
+    end
+    x=x(:);
+    i=i+1;
+    m=abs(norm(x-x0,'inf'));
+end
+
+//迭代次数为8，此时误差为6.396997588087316e-05
