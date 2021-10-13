@@ -1,6 +1,26 @@
 //p48-1)-(1)
 
+clear;
+clc;
+x1=[1;-1;2];
+b=[-3;0;4];
+l=length(x1);
+syms x;
 
+for i=1:l
+    j=1;
+    for j=1:l
+        A(i,j)=power(x1(i),j-1);
+    end
+end
+
+X=inv(A)*b;
+
+i=1;
+f=0;
+for i=1:l
+    f=f+power(x,i-1)*X(i);
+end
 
 //p48-1)-(2)
 
