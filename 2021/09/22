@@ -1,0 +1,126 @@
+
+//p238-2）-（1)
+clear;
+clc;
+a=1.5;
+a0=1;
+i=0;
+if abs(-2/power(a,3))<1
+    while abs(a0-a) > 1e-5
+   i=i+1;
+   a0=a;
+   a=1+1/power(a,2)
+    end
+else 
+    error=1;
+end
+
+//p238-2）-(2)
+clear;
+clc;
+a=1.5;
+a0=1;
+i=0;
+if abs(2/3*a*power(power(a,2)+1,-2/3))<1
+    while abs(a0-a) > 1e-5
+   i=i+1;
+   a0=a;
+   a=power(power(a,2)+1,1/3)
+    end
+else 
+    error=1;
+end
+
+//p238-2）-(3)
+clear;
+clc;
+a=1.5;
+a0=1;
+i=0;
+if abs(-0.5*power(a-1,-1.5))<1
+    while abs(a0-a) > 1e-5
+   i=i+1;
+   a0=a;
+   a=power(a-1,0.5)
+    end
+else 
+    error=1;
+end
+
+//p238-3）-（1）
+clear;
+clc;
+a=0;
+a1=1;
+i=0;
+while abs(roundn(a1,-5)-roundn(a,-5))>1e-4
+   i=i+1;
+   if (exp((a+a1)/2)+10*(a+a1)/2-2)*(exp(a)+10*a-2)>0
+       a=(a+a1)/2;
+   else a1=(a+a1)/2;  
+   end
+end
+
+
+//p238-3）-（2）
+clear;
+clc;
+a=0;
+a0=1;
+i=0;
+while abs(roundn(a,-5)-roundn(a0,-5))>1e-4
+   i=i+1;
+   a0=a;
+   a=(2-exp(a))/10;
+ 
+end
+
+
+//p238-5）-（1）
+clear;
+clc;
+a=0;
+a1=1;
+b=power(1+power(a,2),1/3);
+c=power(1+power(b,2),1/3);
+a1=a-power(b-a,2)/(c-2*b+a);
+while abs(a1-a) > 1e-5
+    a=a1
+    b=power(1 + power(a, 2), 1 / 3)
+    c=power(1 + power(b, 2), 1 / 3)
+    a1=a - power(b - a, 2) / (c - 2 * b + a)
+end
+
+
+//p238-5）-（2）
+clear;
+clc;
+a=1.5;
+a1=1;
+b=1/power(a-1,0.5);
+c=1/power(b-1,0.5);
+a1=a-power(b-a,2)/(c-2*b+a);
+
+while abs(a1-a) > 1e-5
+    a=a1
+    b = 1/power(a-1,0.5)
+    c = 1/power(b-1,0.5)
+    a1 = a - power(b - a, 2) / (c - 2 * b + a)
+
+end
+
+
+
+//p238-13）
+clear；
+clc；
+a=10;
+a1=2;
+b=0;
+
+while abs(a1-a) ~= 0 
+
+    b=a-0.5*a+115/(2*a)；
+    a1=a；
+    a=b；
+end
