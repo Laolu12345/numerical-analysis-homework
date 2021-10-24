@@ -57,7 +57,7 @@ end
 
 for i=4:l+1
     for j=i-1:l
-      x1(j,i)=(x1(j,i-1)-x1(j-1,i-1))/(x1(j,1)-x1(1,1));  
+      x1(j,i)=(x1(j,i-1)-x1(j-1,i-1))/(x1(j,1)-x1(j+2-i,1));  
     end
 end
 
